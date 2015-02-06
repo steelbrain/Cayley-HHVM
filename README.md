@@ -1,5 +1,5 @@
 # Cayley-HHVM
-A [Cayley][Cayley-Repo] driver for [HHVM][HHVM-Repo]
+A [Cayley][Cayley-Repo] client for [HHVM][HHVM-Repo]
 
 ## Usage
 ```hack
