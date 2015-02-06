@@ -17,7 +17,7 @@ class Cayley{
     return new CayleyQuery($this);
   }
   public function write(string $subject, string $predicate, string $object, string $label = ''):void{
-    $this->ProcessMulti(CayleyOpt::WRITE, [shape(
+    $this->ProcessMulti(CayleyOp::WRITE, [shape(
       'subject' => $subject,
       'predicate' => $predicate,
       'object' => $object,
@@ -25,7 +25,7 @@ class Cayley{
     )]);
   }
   public function delete(string $subject, string $predicate, string $object, string $label = ''):void{
-    $this->ProcessMulti(CayleyOpt::DELETE, [shape(
+    $this->ProcessMulti(CayleyOp::DELETE, [shape(
       'subject' => $subject,
       'predicate' => $predicate,
       'object' => $object,
