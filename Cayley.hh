@@ -5,6 +5,10 @@ type TypeCayleyEntry = shape(
   'object' => string,
   'label' => string
 );
+enum CayleyOp:string as string{
+  WRITE = 'write';
+  DELETE = 'delete';
+}
 class Cayley{
   public function __construct(public string $URL){
 
@@ -13,16 +17,24 @@ class Cayley{
     return new CayleyQuery($this);
   }
   public function write(string $subject, string $predicate, string $object, string $label = ''):void{
-    $this->writeMulti([shape(
+    $this->ProcessMulti(CayleyOpt::WRITE, [shape(
       'subject' => $subject,
       'predicate' => $predicate,
       'object' => $object,
       'label' => $label
     )]);
   }
-  public function writeMulti(Traversable<TypeCayleyEntry> $Items):void{
+  public function delete(string $subject, string $predicate, string $object, string $label = ''):void{
+    $this->ProcessMulti(CayleyOpt::DELETE, [shape(
+      'subject' => $subject,
+      'predicate' => $predicate,
+      'object' => $object,
+      'label' => $label
+    )]);
+  }
+  public function ProcessMulti(CayleyOp $Op, Traversable<TypeCayleyEntry> $Items):void{
     $Items = json_encode($Items);
-    $CH = curl_init('http://'.$this->URL.'/api/v1/write');
+    $CH = curl_init('http://'.$this->URL.'/api/v1/'.$Op);
     curl_setopt_array($CH,[
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_POST => true,
