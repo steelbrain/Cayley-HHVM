@@ -8,12 +8,6 @@ class CayleyQuery{
   public function __toString():string{
     return implode('.',$this->Query);
   }
-  private function __arg(string $arg):string{
-    if($arg !== ''){
-      $arg = '"'.addslashes($arg).'"';
-    }
-    return $arg;
-  }
   private function __execute(string $query):array<array<string,string>>{
     $CH = curl_init('http://'.$this->Cayley->URL.'/api/v1/query/gremlin');
     curl_setopt_array($CH,[
